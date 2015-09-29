@@ -1,5 +1,3 @@
-PID = $(shell ps aux|grep '\./goji'|grep -v grep)
-
 serve:
 	make restart
 	#fswatch -o . | xargs -n1 -I{}  make restart || make kill
@@ -14,16 +12,3 @@ restart:
 	echo "Re-compile"
 	go build -gcflags "-N -l" goji.go
 	./goji
-
-start:
-	echo $(PID)
-	go build -gcflags "-N -l" goji.go
-	./goji
-
-say:
-	echo $(PID)
-	ifeq $(PID) ""
-		echo "nothing"
-	else
-		echo "say hoo"
-	endif
