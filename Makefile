@@ -1,4 +1,6 @@
-PID = $(shell ps aux|grep '\./goji'|grep -v grep)
+#PID = $(shell ps aux|pgrep '\./goji'| grep -v grep | awk '{print $2}')
+PID = $(shell ps aux|pgrep goji)
+BLANK = ''
 
 serve:
 	make restart
@@ -7,7 +9,7 @@ serve:
 	fswatch |  make restart || make kill
 
 kill:
-	ps aux|grep '\./goji'|grep -v grep| awk '{print $2}' | xargs kill
+	#ps aux|grep '\./goji'|grep -v grep| awk '{print $2}' | xargs kill
 
 restart:
 	make kill
@@ -21,9 +23,7 @@ start:
 	./goji
 
 say:
-	echo $(PID)
-	ifeq $(PID) ""
-		echo "nothing"
-	else
-		echo "say hoo"
-	endif
+	@echo $(PID)
+	@ifeq($(PID),)
+		@echo "kuso"
+	@endif
