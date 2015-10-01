@@ -3,10 +3,15 @@ PID=$(shell ps aux|pgrep goji)
 BLANK="hoge"
 
 serve:
-	make restart
+ifdef $(PID)
+	make start
+else
+	tashiro -f sample_path.yaml | xargs -n1 -I{}  make restart || make kill
+endif
+	#make restart
 	#fswatch -o . | xargs -n1 -I{}  make restart || make kill
-	#fswatch | xargs -n1 -I{}  make restart || make kill
-	fswatch | make restart || make kill
+	#tashiro -f sample_path.yaml | xargs -n1 -I{}  make restart || make kill
+	#fswatch | make restart || make kill
 
 kill:
 	#ps aux|grep '\./goji'|grep -v grep| awk '{print $3}' | xargs kill
