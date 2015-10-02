@@ -6,7 +6,10 @@ serve:
 ifdef $(PID)
 	make start
 else
-	tashiro -f sample_path.yaml | xargs -n1 -I{}  make restart || make kill
+	#tashiro -f sample_path.yaml | xargs -n1 -I{}  make restart || make kill
+	#ruby watch.rb | xargs -n1 -I{}  make restart || make kill
+	ruby watch.rb | xargs -n1 -I{}  make restart
+	#ruby watch.rb
 endif
 	#make restart
 	#fswatch -o . | xargs -n1 -I{}  make restart || make kill
